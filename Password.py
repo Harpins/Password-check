@@ -46,16 +46,7 @@ def main():
 
     def check_password(event):
         score_value = password_score(entry.get())
-        label1.config(text='Уровень надежности пароля: ' + str(score_value))
-        if score_value <= 4:
-            label2.config(text='Слабый пароль')
-            entry.configure(background="#FFA07A")
-        elif 4 < score_value <= 8:
-            label2.config(text='Средний пароль')
-            entry.configure(background="#FFFACD")
-        else:
-            label2.config(text='Надежный пароль')
-            entry.configure(background="#98FB98")
+        label1.config(text='Рейтинг этого пароля: ' + str(score_value))
 
     root = Tk()
     root.title("Проверка пароля")
@@ -64,24 +55,26 @@ def main():
     screen_height = root.winfo_screenheight()
     x_coord = (screen_width // 2) - (200 // 2)
     y_coord = (screen_height // 2) - (100 // 2)
-    root.geometry(f'200x100+{x_coord}+{y_coord}')
+    root.geometry(f'220x80+{x_coord}+{y_coord}')
     root.resizable(False, False)
 
     password = StringVar(root)
 
-    entry = Entry(root, textvariable=password)
+    label0 = Label(root, text='Введите пароль:')
+
+    entry = Entry(root, show='*', textvariable=password)
     entry.bind('<KeyRelease>', check_password)
-    entry.pack(pady=10)
+
+    label0.grid(row=0, column=0)
+    entry.grid(row=0, column=1)
 
     label1 = Label(root, text='')
-    label1.pack()
-
-    label2 = Label(root, text='Введите пароль')
-    label2.pack()
+    label1.grid(row=1, column=0, columnspan=2, sticky='w')
 
     root.mainloop()
 
 
 if __name__ == '__main__':
     main()
+
 
